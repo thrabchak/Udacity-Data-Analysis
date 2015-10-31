@@ -9,6 +9,10 @@
 *.DOC	 diff=astextplain
 *.docx diff=astextplain
 *.DOCX diff=astextplain
+*.xls	 diff=astextplain
+*.XLS	 diff=astextplain
+*.xlsx diff=astextplain
+*.XLSX diff=astextplain
 *.dot  diff=astextplain
 *.DOT  diff=astextplain
 *.pdf  diff=astextplain
