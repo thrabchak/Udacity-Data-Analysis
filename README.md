@@ -2,6 +2,7 @@
 
 ### Classes
 - [Statistics](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/Statistics)
+- [Intro to Data Analysis](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/Intro%20to%20Data%20Analysis)
 
 ### Projects
 - [P0: Chopsticks](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P0%20Chopsticks)
