@@ -1,0 +1,29 @@
+* {
+   outline: 1px solid red !important;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.title {
+  background-color: #33BEBE;
+  color: white;
+}
+
+.app {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.screenshot {
+  max-width: 460px;
+  margin: 20px;
+}
+
+.description {
+  color:black;
+  max-width: 705px;
+}
