@@ -1,13 +1,14 @@
 ## Udacity Data Analysis
 
 ### Classes
-- [Statistics](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/Statistics)
-- [Intro to Data Analysis](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/Intro%20to%20Data%20Analysis)
+- [Statistics](Statistics/)
+- [Intro to Data Analysis](Intro to Data Analysis/)
+- [HTML and CSS](HTML and CSS/)
 
 ### Projects
-- [P0: Chopsticks](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P0%20Chopsticks)
-- [P1: Stroop Effect](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P1%20Stroop%20Effect)
-- [P2: Baseball Managers](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P2%20Baseball%20Managers)
+- [P0: Chopsticks](P0 Chopsticks/)
+- [P1: Stroop Effect](P1 Stroop Effect/)
+- [P2: Baseball Managers](P2 Baseball Managers/)
 
 ### Instructions for using IPython Notebooks
 
