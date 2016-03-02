@@ -7,6 +7,7 @@
 ### Projects
 - [P0: Chopsticks](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P0%20Chopsticks)
 - [P1: Stroop Effect](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P1%20Stroop%20Effect)
+- [P2: Baseball Managers](https://github.com/thrabchak/Udacity-Data-Analysis/tree/master/P2%20Baseball%20Managers)
 
 ### Instructions for using IPython Notebooks
 
