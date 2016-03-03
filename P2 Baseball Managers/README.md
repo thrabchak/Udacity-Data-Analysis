@@ -6,4 +6,6 @@ This is my submission for the second project of Udacity's Data Analyst program. 
 
 The grading rubric for the project can be found [here](https://docs.google.com/document/d/1YzdSG-rYJuNSprUppkpeno_lobQ7izUxYj_sCUrY3Rg/pub?embedded=true).
 
-View the .ipynb (iPython notebook) [here](https://github.com/thrabchak/Udacity-Data-Analysis/blob/master/P2%20Baseball%20Managers/Data_Analyst_ND_Project2.ipynb).
+View the .ipynb (iPython notebook) [here](Data_Analyst_ND_Project2.ipynb).
+
+View the project as html [here](Data_Analyst_ND_Project2.html).
