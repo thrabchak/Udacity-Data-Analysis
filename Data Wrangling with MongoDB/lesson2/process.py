@@ -61,19 +61,46 @@ def process_file(f):
     # will be a reference to the same info dictionary.
     with open("{}/{}".format(datadir, f), "r") as html:
 
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, "html.parser")
+
+        rows = []
+        for tr in soup.findAll('tr'):
+            print("found tr")
+            if "class" in tr.attrs.keys() and tr['class'] == "dataTDRight":
+                rows.add(tr)
+        print("len rows:" + str(len(rows)))
+
+        for row in rows:
+            rowData = {'courier': info['courier'],
+                                'airport': info['airport']}
+            print("again")
+
+            for i, child in enumerate(row.children):
+                print("entering")
+                if child.string == 'TOTAL':
+                    continue
+                if i == 0:
+                    rowData['year'] = child.string
+                if i == 1:
+                    rowData['month'] = child.string
+                if i == 2:
+                    rowData['flights']['domestic'] = child.string
+                if i == 3:
+                    rowData['flights']['international'] = child.string
+
+            data.append(rowData)
 
     return data
 
 
 def test():
-    print "Running a simple test..."
-    open_zip(datadir)
+    print("Running a simple test...")
+    #open_zip(datadir)
     files = process_all(datadir)
     data = []
     for f in files:
         data += process_file(f)
-        
+    print(len(data))
     assert len(data) == 399  # Total number of rows
     for entry in data[:3]:
         assert type(entry["year"]) == int
@@ -86,7 +113,7 @@ def test():
     assert data[-1]["airport"] == "ATL"
     assert data[-1]["flights"] == {'international': 108289, 'domestic': 701425}
     
-    print "... success!"
+    print("... success!")
 
 if __name__ == "__main__":
     test()
