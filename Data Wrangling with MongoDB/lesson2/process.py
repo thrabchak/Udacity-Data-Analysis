@@ -65,30 +65,39 @@ def process_file(f):
 
         rows = []
         for tr in soup.findAll('tr'):
-            print("found tr")
-            if "class" in tr.attrs.keys() and tr['class'] == "dataTDRight":
-                rows.add(tr)
-        print("len rows:" + str(len(rows)))
+            if tr.get('class') != None and "dataTDRight" in tr['class']:
+                rows.append(tr)
 
         for row in rows:
             rowData = {'courier': info['courier'],
-                                'airport': info['airport']}
-            print("again")
+                                'airport': info['airport'],
+                                'flights' : {}}
+            skipRow = False
+            print(str(row))
 
-            for i, child in enumerate(row.children):
-                print("entering")
-                if child.string == 'TOTAL':
-                    continue
+            row_as_list = [child.string.strip() for child in row]
+            print(row_as_list[1:-2])
+
+            for i, value in enumerate(row_as_list[1:-2]):
+                print(value)
+                if value == 'TOTAL':
+                    skipRow = True
+                    continue                
+                int_val = int(value.replace(",", ""))
                 if i == 0:
-                    rowData['year'] = child.string
+                    rowData['year'] = int_val
                 if i == 1:
-                    rowData['month'] = child.string
+                    rowData['month'] = int_val
                 if i == 2:
-                    rowData['flights']['domestic'] = child.string
+                    rowData['flights']['domestic'] = int_val
                 if i == 3:
-                    rowData['flights']['international'] = child.string
+                    rowData['flights']['international'] = int_val
 
-            data.append(rowData)
+            if not skipRow:
+                print(rowData)
+                data.append(rowData)
+
+            print('\n\n')
 
     return data
 
@@ -101,7 +110,8 @@ def test():
     for f in files:
         data += process_file(f)
     print(len(data))
-    assert len(data) == 399  # Total number of rows
+    print(data[0])
+    assert len(data) == 3  # Total number of rows
     for entry in data[:3]:
         assert type(entry["year"]) == int
         assert type(entry["month"]) == int
@@ -111,7 +121,7 @@ def test():
     assert data[0]["courier"] == 'FL'
     assert data[0]["month"] == 10
     assert data[-1]["airport"] == "ATL"
-    assert data[-1]["flights"] == {'international': 108289, 'domestic': 701425}
+    #assert data[-1]["flights"] == {'international': 108289, 'domestic': 701425}
     
     print("... success!")
 

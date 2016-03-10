@@ -20,9 +20,16 @@ def split_file(filename):
     # As a hint - each patent declaration starts with the same line that was causing the error
     # The new files should be saved with filename in the following format:
     # "{}-{}".format(filename, n) where n is a counter, starting from 0.
-
-    pass
-
+    with open(filename, 'r') as bigfile:    
+        split_str = '<?xml version="1.0" encoding="UTF-8"?>'
+        xmlstrings = bigfile.read().split(split_str)
+        
+        n = 0
+        for xmlstring in xmlstrings[1:]:
+            xml = split_str + xmlstring
+            with open("{}-{}".format(filename, n), "w") as out_file:
+                out_file.write(xml)
+                n += 1
 
 def test():
     split_file(PATENTS)
@@ -31,10 +38,9 @@ def test():
             fname = "{}-{}".format(PATENTS, n)
             f = open(fname, "r")
             if not f.readline().startswith("<?xml"):
-                print "You have not split the file {} in the correct boundary!".format(fname)
+                print("You have not split the file {} in the correct boundary!".format(fname))
             f.close()
         except:
-            print "Could not find file {}. Check if the filename is correct!".format(fname)
-
+            print("Could not find file {}. Check if the filename is correct!".format(fname))
 
 test()
