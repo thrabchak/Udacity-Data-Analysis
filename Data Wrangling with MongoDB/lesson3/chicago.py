@@ -31,9 +31,9 @@ def audit():
     context = iter(context)
     event, root = context.__next__()
     for event, elem in context:
-        if is_street_name(elem):
-            audit_street_type(street_types, elem.attrib['v'])
         if event == "end":
+            if is_street_name(elem):
+                audit_street_type(street_types, elem.attrib['v'])
             root.clear()
     print_sorted_dict(street_types)    
 
