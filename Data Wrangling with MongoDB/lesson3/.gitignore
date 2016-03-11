@@ -1,5 +1,9 @@
-# This file is too big for github. It is available for
-# download here: http://osm-extracted-metros.s3.amazonaws.com/chicago.osm.bz2
+# Full chicago.osm: http://osm-extracted-metros.s3.amazonaws.com/chicago.osm.bz2
 chicago.osm
+
+# Output files from validity.py
 autos-valid.csv
 FIXME-autos.csv
+
+# Full cities file: http://content.udacity-data.com/ud032/infobox/cities.csv.zip
+cities.csv
