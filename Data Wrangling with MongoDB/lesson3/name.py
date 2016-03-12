@@ -16,15 +16,17 @@ import codecs
 import csv
 import pprint
 
-CITIES = 'cities.csv'
+CITIES = 'cities_abbrev.csv'
 
 
 def fix_name(name):
+    if name == "" or name == "NULL":
+        return []
 
-    # YOUR CODE HERE
+    if name[0] != '{':
+        return [name]
 
-    return name
-
+    return name[1:-1].split('|')
 
 def process_file(filename):
     data = []
@@ -49,6 +51,8 @@ def test():
     for n in range(20):
         pprint.pprint(data[n]["name"])
 
+    print("entry: ")
+    print(data[14]["name"])
     assert data[14]["name"] == ['Negtemiut', 'Nightmute']
     assert data[9]["name"] == ['Pell City Alabama']
     assert data[3]["name"] == ['Kumhari']

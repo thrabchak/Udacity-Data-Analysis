@@ -22,11 +22,53 @@ import pprint
 
 CITIES = 'cities.csv'
 
+def process_point(point):
+    if(point == "" or point == "NULL"):
+        return [],[]
+
+    if(point[0] != '{'):
+        split_point = point.split(' ')
+        return [split_point[0]], [split_point[1]]
+    else:
+        split_point = point[1:-1].split('|')
+        lats = []
+        longs = []
+
+        for entry in split_point:
+            entry_split = entry.split(' ')
+            lats.append(entry_split[0])
+            longs.append(entry_split[1])
+
+        return lats, longs
+
+    return [], []
+
+def process_wgs84(value):
+    if(value == "" or value == "NULL"):
+        return []
+
+    if(value[0] != '{'):
+        return [value]
+    else:
+        return value[1:-1].split('|')
+
 
 def check_loc(point, lat, longi):
-    # YOUR CODE HERE
-    
-    pass
+    #print("point: " + point + " lat: " + lat + " longi: " + longi)
+
+    point_lat, point_long = process_point(point)
+    lat_out = process_wgs84(lat)
+    long_out = process_wgs84(longi)
+
+    # print(point_lat)
+    # print(point_long)
+    # print(lat_out)
+    # print(long_out)
+
+    if(point_lat == lat_out and point_long == long_out):
+        return True
+
+    return False
 
 
 def process_file(filename):
@@ -48,6 +90,7 @@ def process_file(filename):
 
 
 def test():
+    process_file(CITIES)
     assert check_loc("33.08 75.28", "33.08", "75.28") == True
     assert check_loc("44.57833333333333 -91.21833333333333", "44.5783", "-91.2183") == False
 

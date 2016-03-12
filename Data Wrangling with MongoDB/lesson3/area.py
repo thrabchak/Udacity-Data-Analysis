@@ -17,12 +17,30 @@ import csv
 import json
 import pprint
 
-CITIES = 'cities.csv'
+CITIES = 'cities_abbrev.csv'
 
+def get_longest_string(str_list):
+    our_max = ""
+    for s in str_list:
+        if len(s) > len(our_max):
+            our_max = s
+    return our_max
 
 def fix_area(area):
 
-    # YOUR CODE HERE
+    if area == "" or area == "NULL":
+        return None
+
+    try:
+        if(area[0] != '{'):
+            return float(area)
+
+        values = area[1:-1].split('|')
+        most_sig_val = get_longest_string(values)
+        out_value = float(most_sig_val)
+        return out_value
+    except:
+        print("ERROR: " + area)
 
     return area
 
@@ -52,7 +70,7 @@ def process_file(filename):
 def test():
     data = process_file(CITIES)
 
-    print "Printing three example results:"
+    print("Printing three example results:")
     for n in range(5,8):
         pprint.pprint(data[n]["areaLand"])
 
