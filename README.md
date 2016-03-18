@@ -4,6 +4,7 @@
 - [Statistics](Statistics/)
 - [Intro to Data Analysis](Intro to Data Analysis/)
 - [HTML and CSS](HTML and CSS/)
+- [Data Wrangling with MongoDB](Data Wrangling with MongoDB)
 
 ### Projects
 - [P0: Chopsticks](P0 Chopsticks/)
