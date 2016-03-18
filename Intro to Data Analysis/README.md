@@ -1,7 +1,7 @@
 ## Intro to Data Analysis
 
-[Course Webpage](https://www.udacity.com/course/intro-to-data-analysis--ud170)
-[Finished Project](../P2 Baseball Managers)
+* [Course Webpage](https://www.udacity.com/course/intro-to-data-analysis--ud170)
+* [Finished Project](../P2 Baseball Managers)
 
 ### Course Summary
 

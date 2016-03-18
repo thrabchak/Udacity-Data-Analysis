@@ -1,7 +1,7 @@
 ## Statistics
 
-[Course Webpage](https://www.udacity.com/course/statistics--ud134-nd)
-[Finished Project](../P1 Stroop Effect)
+* [Course Webpage](https://www.udacity.com/course/statistics--ud134-nd)
+* [Finished Project](../P1 Stroop Effect)
 
 ### Course Summary
 
