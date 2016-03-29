@@ -56,6 +56,7 @@ FIELDS ={'rdf-schema#label': 'label',
 
 
 def process_file(filename, fields):
+    CLASSIFICATION_FIELDS = ["kingdom", "family", "order", "phylum", "genus", "class"]
 
     process_fields = fields.keys()
     data = []
@@ -65,8 +66,30 @@ def process_file(filename, fields):
             l = reader.next()
 
         for line in reader:
-            # YOUR CODE HERE
-            pass
+            row_dict = {'classification': {}}
+
+            for column in FIELDS.keys():
+                col_data = line[column].strip()
+                col_name = FIELDS[column]
+                if (col_data[0] == "{") and (col_data[-1] == "}"):
+                    col_data = parse_array(col_data)
+                if col_data == "NULL":
+                    col_data = None
+                if col_name == "label" and type(col_data) is str:
+                    col_data = re.sub(r'\(.*\)', "", col_data).strip()
+                if col_name == "synonym" and col_data != None and type(col_data) is not list:
+                    col_data = [col_data]
+
+                if col_name in CLASSIFICATION_FIELDS:
+                    row_dict['classification'][col_name] = col_data
+                else:
+                    row_dict[col_name] = col_data
+
+            if row_dict['name'] != row_dict['label']:
+                row_dict['name'] = row_dict['label']
+
+            data.append(row_dict)
+
     return data
 
 
@@ -82,7 +105,7 @@ def parse_array(v):
 
 def test():
     data = process_file(DATAFILE, FIELDS)
-    print "Your first entry:"
+    print("Your first entry:")
     pprint.pprint(data[0])
     first_entry = {
         "synonym": None, 
@@ -103,7 +126,9 @@ def test():
     assert len(data) == 76
     assert data[0] == first_entry
     assert data[17]["name"] == "Ogdenia"
+    pprint.pprint(data[48])
     assert data[48]["label"] == "Hydrachnidiae"
+    pprint.pprint(data[14])
     assert data[14]["synonym"] == ["Cyrene Peckham & Peckham"]
 
 if __name__ == "__main__":

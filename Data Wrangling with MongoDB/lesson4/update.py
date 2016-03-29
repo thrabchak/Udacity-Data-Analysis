@@ -47,6 +47,7 @@ import codecs
 import csv
 import json
 import pprint
+import re
 
 DATAFILE = 'arachnid.csv'
 FIELDS ={'rdf-schema#label': 'label',
@@ -61,14 +62,21 @@ def add_field(filename, fields):
         reader = csv.DictReader(f)
         for i in range(3):
             l = reader.next()
-        # YOUR CODE HERE
+        for line in reader:
+            label_data = line['rdf-schema#label']
+            binomialAuthority_data = line['binomialAuthority_label']
 
+            label_data = re.sub(r'\(.*\)', "", label_data).strip()
+
+            if binomialAuthority_data != "NULL":
+                data[label_data] = binomialAuthority_data
     return data
 
 
 def update_db(data, db):
-    # YOUR CODE HERE
-    pass
+    for label in data.keys():
+        db.arachnid.update({"label": label},
+                     {"$set": {"classification.binomialAuthority": data[label]}})
 
 
 def test():

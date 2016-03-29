@@ -1,11 +1,7 @@
 import json
 
 def insert_data(data, db):
-
-    # Your code here. Insert the data into a collection 'arachnid'
-
-    pass
-
+    db.arachnid.insert(data)
 
 if __name__ == "__main__":
     
