@@ -29,7 +29,21 @@ def get_db(db_name):
 
 def make_pipeline():
     # complete the aggregation pipeline
-    pipeline = [ ]
+    pipeline = [
+        {"$match": 
+            {"country": "India",
+              "lon": {"$gt": 75, "$lt": 80}}
+        },
+        {"$unwind": "$isPartOf"},
+        {"$group": 
+            {
+                "_id": "$isPartOf",
+                "count": {"$sum": 1}
+            }
+        },
+        {"$sort": {"count": -1}},
+        {"$limit": 1}
+    ]
     return pipeline
 
 def aggregate(db, pipeline):
