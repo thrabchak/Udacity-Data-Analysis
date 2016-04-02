@@ -33,9 +33,15 @@ problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
 
 def key_type(element, keys):
     if element.tag == "tag":
-        # YOUR CODE HERE
-        pass
-        
+        attribute = element.attrib['k']
+        if(re.match(lower, attribute) != None):
+            keys['lower'] += 1
+        elif(re.match(lower_colon, attribute) != None):
+            keys['lower_colon'] += 1
+        elif(re.match(problemchars, attribute) != None):
+            keys['problemchars'] += 1
+        else:
+            keys['other'] +=  1
     return keys
 
 
@@ -56,7 +62,7 @@ def test():
     # when you submit, your code will be checked against a different dataset.
     keys = process_map('example.osm')
     pprint.pprint(keys)
-    assert keys == {'lower': 5, 'lower_colon': 0, 'other': 1, 'problemchars': 1}
+    assert keys == {'lower': 5, 'lower_colon': 0, 'other': 2, 'problemchars': 0}
 
 
 if __name__ == "__main__":
