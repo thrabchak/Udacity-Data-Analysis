@@ -1,5 +1,5 @@
 """
-Downloads the OSM data for the Yucatan Peninsula. 
+Downloads OSM data for the Yucatan Peninsula. 
 """
 import argparse
 import os
@@ -42,8 +42,8 @@ def download_osm_file(small):
         print("Downloading full map.")
         download_overpass_file(lat, lon)
     print("Finished downloading " + filename)
-    filesize = os.stat(filename).st_size * 1E-6
-    print("size:  %.1f MB" % filesize)
+    filesize = os.stat(filename).st_size / (1024.0 * 1024.0)
+    print("Size:  %.1f MB" % filesize)
     return
 
 def main():
