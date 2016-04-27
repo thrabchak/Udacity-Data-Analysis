@@ -5,6 +5,7 @@ import pprint
 import re
 import codecs
 import json
+from pymongo import MongoClient
 """
 Your task is to wrangle the data and transform the shape of the data
 into the model we mentioned earlier. The output should be a list of dictionaries
@@ -93,6 +94,8 @@ problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
 
 CREATED = [ "version", "changeset", "timestamp", "user", "uid"]
 
+client = MongoClient("mongodb://localhost:27017")
+db = client.yucatan_osm
 
 def shape_element(element):
     node = {"created":{}}
@@ -121,6 +124,9 @@ def shape_element(element):
         if(len(childtags) > 0):
             node["address"] = {}
             for childtag in childtags:
+                if not(('k' in childtag.attrib) and ('v' in childtag.attrib)):
+                    continue
+
                 k = childtag.attrib['k']
                 v = childtag.attrib['v']
 
@@ -148,19 +154,25 @@ def shape_element(element):
 
 
 def process_map(file_in, pretty = False):
-    # You do not need to change this file
     file_out = "{0}.json".format(file_in)
     data = []
     with codecs.open(file_out, "w") as fo:
-        for _, element in ET.iterparse(file_in):
-            el = shape_element(element)
-            if el:
-                data.append(el)
-                if pretty:
-                    fo.write(json.dumps(el, indent=2)+"\n")
-                else:
-                    fo.write(json.dumps(el) + "\n")
+        context = ET.iterparse(file_in, events=("start", "end"))
+        for event, element in context:
+            if event == "end":
+                el = shape_element(element)
+                if el:
+                    data.append(el)
+                    if pretty:
+                        fo.write(json.dumps(el, indent=2)+"\n")
+                    else:
+                        fo.write(json.dumps(el) + "\n")
+                element.clear()
     return data
+
+
+def main():
+    process_map("data.xml")
 
 def test():
     # NOTE: if you are running this code on your computer, with a larger dataset, 
@@ -191,4 +203,4 @@ def test():
                                     "2199822370", "2199822284", "2199822281"]
 
 if __name__ == "__main__":
-    test()
+    main()
