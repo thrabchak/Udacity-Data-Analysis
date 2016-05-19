@@ -125,8 +125,10 @@ def shape_element(element):
         childtags = element.findall('tag')
         if(len(childtags) > 0):
             node["address"] = {}
+            node["tags"] = {}
+
             for childtag in childtags:
-                if not(('k' in childtag.attrib) and ('v' in childtag.attrib)):
+                if not(('k' in childtag.attrib.keys()) and ('v' in childtag.attrib.keys())):
                     continue
 
                 k = childtag.attrib['k']
@@ -141,8 +143,8 @@ def shape_element(element):
                         continue
                     attrname = spl[1]
                     node["address"][attrname] = v
-                elif(':' in k):
-                    node[k] = v
+                else:
+                    node["tags"][k] = v
 
         noderefs = element.findall('nd')
         if(len(noderefs) > 0):
@@ -170,7 +172,9 @@ def process_map(file_in, pretty = False):
                         fo.write(json.dumps(el, indent=2)+"\n")
                     else:
                         fo.write(json.dumps(el) + "\n")
-                element.clear()
+
+                if element.tag == "node" or element.tag == "way":
+                    element.clear()
     return data
 
 
