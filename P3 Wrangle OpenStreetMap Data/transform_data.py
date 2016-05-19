@@ -100,10 +100,12 @@ client = MongoClient("mongodb://localhost:27017")
 db = client.yucatan_osm
 
 def shape_element(element):
-    node = {"created":{}}
+    node = {"created":{}, "address": {}, "tags": {}}
+
     if element.tag == "node" or element.tag == "way" :
         node["type"] = element.tag
 
+        # Parse element attributes
         attributes = element.attrib
         lat = 0.0
         lon = 0.0
@@ -122,10 +124,10 @@ def shape_element(element):
         if(lat != 0.0 and lon != 0.0):
             node["pos"] = [lat, lon]
 
+        # Parse child elements of "Node" and "Way" elements
         childtags = element.findall('tag')
         if(len(childtags) > 0):
-            node["address"] = {}
-            node["tags"] = {}
+
 
             for childtag in childtags:
                 if not(('k' in childtag.attrib.keys()) and ('v' in childtag.attrib.keys())):
@@ -146,12 +148,19 @@ def shape_element(element):
                 else:
                     node["tags"][k] = v
 
+        # Parse child noderef elements
         noderefs = element.findall('nd')
         if(len(noderefs) > 0):
             node["node_refs"] = []
             for nr in noderefs:
                 if 'ref' in nr.attrib.keys():
                     node["node_refs"].append(nr.attrib['ref'])
+
+        # Remove address and/or tags from node if they are empty
+        if len(node["address"]) == 0:
+            del(node["address"])
+        if len(node["tags"]) == 0:
+            del(node["tags"])
 
         return node
     else:
